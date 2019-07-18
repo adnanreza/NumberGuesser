@@ -14,7 +14,7 @@ let min = 1,
   guessesLeft = 3;
 
 // UI Elements
-const UIgame = document.querySelector("#game"),
+const UIgameWrapper = document.querySelector("#game"),
   UIminNum = document.querySelector(".min-num"),
   UImaxNum = document.querySelector(".max-num"),
   UIguessBtn = document.querySelector("#guess-btn"),
@@ -24,6 +24,13 @@ const UIgame = document.querySelector("#game"),
 // Assign UI min and max
 UIminNum.textContent = min;
 UImaxNum.textContent = max;
+
+// Play again event listener
+UIgameWrapper.addEventListener("mousedown", function(e) {
+  if (e.target.className === "play-again") {
+    window.location.reload();
+  }
+});
 
 //Listen for guess
 UIguessBtn.addEventListener("click", function() {
@@ -36,24 +43,12 @@ UIguessBtn.addEventListener("click", function() {
   //Check if won
   if (guess === winningNum) {
     //game over -won!
-    // //disable input
-    // UIguessInput.disabled = true;
-    // UIguessInput.style.borderColor = "green";
-    // //set message
-    // setMessage(`${winningNum} is correct!, YOU JUST WON!`, "green";
     gameOver(true, `${winningNum} is correct!, YOU JUST WON!`, "green");
   } else {
     //wrong mumber
     guessesLeft -= 1;
     if (guessesLeft === 0) {
-      //   //Game over - lost!
-      //   UIguessInput.disabled = true;
-      //   UIguessInput.style.borderColor = "red";
-      //   //set message
-      //   setMessage(
-      //     `Game over, you lost! The correct number was ${winningNum}`,
-      //     "red"
-      //   );
+      //Game over - lost!
       gameOver(
         false,
         `Game over, you lost! The correct number was ${winningNum}`
@@ -90,4 +85,7 @@ function gameOver(won, msg) {
   UImessage.style.color = color;
   //set message
   setMessage(msg);
+  //play again?
+  UIguessBtn.value = "Play Again";
+  UIguessBtn.className += "play-again";
 }
