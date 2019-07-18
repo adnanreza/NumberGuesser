@@ -10,7 +10,7 @@
 // Game values
 let min = 1,
   max = 10,
-  winningNum = 2,
+  winningNum = getRandomNum(min, max),
   guessesLeft = 3;
 
 // UI Elements
@@ -88,4 +88,10 @@ function gameOver(won, msg) {
   //play again?
   UIguessBtn.value = "Play Again";
   UIguessBtn.className += "play-again";
+}
+
+// getRandomNum funciton
+function getRandomNum(min, max) {
+  // we want a number between 1 and 10 so we * by: (max-min)+min !
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
